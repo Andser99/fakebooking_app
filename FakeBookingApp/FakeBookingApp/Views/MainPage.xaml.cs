@@ -11,9 +11,11 @@ namespace FakeBookingApp.Views
     public partial class MainPage : MasterDetailPage
     {
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+        public static MainPage CurrentMainPage;
         public MainPage()
         {
             InitializeComponent();
+            CurrentMainPage = this;
 
             MasterBehavior = MasterBehavior.Popover;
 
@@ -29,18 +31,21 @@ namespace FakeBookingApp.Views
                     case (int)MenuItemType.Home:
                         MenuPages.Add(id, new NavigationPage(new HomePage()));
                         break;
-                    case (int)MenuItemType.VideoCalls:
-                        MenuPages.Add(id, new NavigationPage(new HomePage()));
-                        break;
-                    case (int)MenuItemType.MyReservations:
-                        MenuPages.Add(id, new NavigationPage(new HomePage()));
-                        break;
-                    case (int)MenuItemType.Stories:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
-                        break;
+                    //case (int)MenuItemType.VideoCalls:
+                    //    MenuPages.Add(id, new NavigationPage(new HomePage()));
+                    //    break;
+                    //case (int)MenuItemType.MyReservations:
+                    //    MenuPages.Add(id, new NavigationPage(new HomePage()));
+                    //    break;
+                    //case (int)MenuItemType.Stories:
+                    //    MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                    //    break;
                     case (int)MenuItemType.Logout:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                        await Navigation.PopModalAsync();
                         break;
+                    default:
+                        await DisplayAlert("Error", "Stranka neexistuje", "OK");
+                        return;
                 }
             }
 

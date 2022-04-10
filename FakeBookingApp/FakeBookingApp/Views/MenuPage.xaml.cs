@@ -10,7 +10,7 @@ namespace FakeBookingApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : ContentPage
     {
-        MainPage RootPage { get => Application.Current.MainPage as MainPage; }
+        MainPage RootPage { get => MainPage.CurrentMainPage; }
         List<HomeMenuItem> menuItems;
         public MenuPage()
         {

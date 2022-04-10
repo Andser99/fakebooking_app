@@ -18,7 +18,7 @@ namespace FakeBookingApp.Services
 
         public static string BaseAddress = "https://fakebooking.herokuapp.com/";
 
-        public static async Task<int> PostLogin(string username, string password)
+        public static async Task<(int UserId, string ResultMessage)> PostLogin(string username, string password)
         {
             var parameterDict = new Dictionary<string, string>();
             parameterDict.Add("username", username);
@@ -30,11 +30,20 @@ namespace FakeBookingApp.Services
 
             Uri uri = new Uri(BaseAddress + "login");
             var result = await Client.PostAsync(uri, content);
-            Console.WriteLine(result);
-            var deserialized = JsonConvert.DeserializeObject<Dictionary<string, List<HotelItem>>>(result);
-            if (deserialized.HasKey("user_id"))
-                return deserialized["user_id"];
-            return deserialized["user_id"];
+            var resultText = await result.Content.ReadAsStringAsync();
+            Console.WriteLine(resultText);
+
+            var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultText);
+            if (deserialized.ContainsKey("user_id"))
+                return (Convert.ToInt32(deserialized["user_id"]), "Success");
+            else if (deserialized.ContainsKey("error"))
+            {
+                return (-1, deserialized["error"]);
+            }
+            else
+            {
+                return (-1, "Nejde");
+            }
         }
         public static async Task<List<HotelItem>> GetHotels()
         {

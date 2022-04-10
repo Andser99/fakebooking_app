@@ -1,6 +1,8 @@
-﻿using System;
+﻿using FakeBookingApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FakeBookingApp
 {
@@ -11,16 +13,17 @@ namespace FakeBookingApp
 
         public User (int id = -1)
         {
-
+            UserId = id;
         }
 
-        public string Login(string username, string password)
+        public static async Task<string> Login(string username, string password)
         {
-            var res = "";
-
-
-
-            return res;
+            var res = await RestService.PostLogin(username, password);
+            if (res.UserId != -1)
+            {
+                CurrentUser = new User(res.UserId);
+            }
+            return res.ResultMessage;
         }
 
         public void Logout()

@@ -21,7 +21,6 @@ namespace FakeBookingApp.Views
         public HomePage()
         {
             InitializeComponent();
-
             BindingContext = viewModel = new ItemsViewModel();
         }
 
