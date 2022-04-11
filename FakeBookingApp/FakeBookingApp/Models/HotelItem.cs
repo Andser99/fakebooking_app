@@ -20,4 +20,9 @@ namespace FakeBookingApp.Models
             }
         }
     }
+
+    public class DetailedHotelItem : HotelItem
+    {
+        public List<Dictionary<string, string>> reviews { get; set; }
+    }
 }

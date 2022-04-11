@@ -42,7 +42,7 @@ namespace FakeBookingApp.Views
                     //    break;
                     case (int)MenuItemType.Logout:
                         await Navigation.PopModalAsync();
-                        break;
+                        return;
                     default:
                         await DisplayAlert("Error", "Stranka neexistuje", "OK");
                         return;

@@ -26,6 +26,16 @@ namespace FakeBookingApp
             return res.ResultMessage;
         }
 
+        public static async Task<string> Register(string username, string password, string passwordAgain)
+        {
+            var res = await RestService.PostRegister(username, password, passwordAgain);
+            if (res.UserId != -1)
+            {
+                CurrentUser = new User(res.UserId);
+            }
+            return res.ResultMessage;
+        }
+
         public void Logout()
         {
             CurrentUser = null;

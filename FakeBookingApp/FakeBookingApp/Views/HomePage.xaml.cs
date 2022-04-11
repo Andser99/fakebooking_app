@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using FakeBookingApp.Models;
 using FakeBookingApp.Views;
 using FakeBookingApp.ViewModels;
+using FakeBookingApp.Services;
 
 namespace FakeBookingApp.Views
 {
@@ -26,11 +27,12 @@ namespace FakeBookingApp.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
+            var item = args.SelectedItem as HotelItem;
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            var res = await RestService.GetHotel(item);
+            await Navigation.PushAsync(new HotelDetailPage(new HotelDetailViewModel(res)));
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;
