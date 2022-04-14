@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:webRtc="clr-namespace:WebRTCme.Middleware;assembly=WebRTCme.Middleware.Xamarin"
+             x:Class="MobileBooking.Views.VideoPage"
+             Title="Call">
+    <!--<ContentPage.Content>
+        <StackLayout>
+            <webRtc:Media x:Name="MediaLocalStream" Stream="{Binding LocalStream}" />
+            <webRtc:Media x:Name="MediaRemoteStream" Stream="{Binding RemoteStream}" />
+        </StackLayout>
+    </ContentPage.Content>-->
+</ContentPage>

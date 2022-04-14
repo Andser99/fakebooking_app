@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileBooking.Views.MenuPage"
+             Title="Menu">
+    <StackLayout VerticalOptions="FillAndExpand">
+        <ListView x:Name="ListViewMenu"
+                    HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Label Text="{Binding Title}" FontSize="20"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>-->
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MobileBooking.Views" xmlns:MobileBooking.Models="clr-namespace:MobileBooking.Models"
+             x:Class="MobileBooking.Views.MenuPage"
+             Padding="0,40,0,0"
+             IconImageSource="hamburger.png"
+             Title="Menu ">
+    <!--<StackLayout>
+        <ListView x:Name="listView" x:FieldModifier="public">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type MobileBooking.Models:FlyoutPageItem}">
+                    <MobileBooking.Models:FlyoutPageItem Title="Home" TargetType="{x:Type local:HomePage}" />
+                    <MobileBooking.Models:FlyoutPageItem Title="Video Calls" TargetType="{x:Type local:VideoPage}" />
+                    <MobileBooking.Models:FlyoutPageItem Title="Reviews" TargetType="{x:Type local:HomePage}" />
+                    <MobileBooking.Models:FlyoutPageItem Title="Logout" TargetType="{x:Type local:LoginPage}" />
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" Text="{Binding Title}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>-->
+</ContentPage>
