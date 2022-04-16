@@ -7,14 +7,14 @@ namespace MobileBooking.ViewModels
 {
     public class HotelDetailViewModel : BaseViewModel
     {
-        public DetailedHotelItem Item { get; set; }
-        public ObservableCollection<List<Dictionary<string, string>>> Items { get; set; }
+        public DetailedHotelItem Hotel { get; set; }
+        public ObservableCollection<ReviewItem> Reviews { get; set; }
 
-        public HotelDetailViewModel(DetailedHotelItem item = null)
+        public HotelDetailViewModel(DetailedHotelItem hotel = null)
         {
-
-            Title = item?.name;
-            Item = item;
+            Title = hotel?.name;
+            Hotel = hotel;
+            Reviews = new ObservableCollection<ReviewItem>(hotel.reviews);
         }
     }
 }

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="MobileBooking.Views.ReservationPopupPage">
+    <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20, 20, 20, 20">
+        <StackLayout BackgroundColor="White" Padding="0, 10, 0, 0">
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="From"/>
+                    <DatePicker x:Name="FromDatePicker" DateSelected="FromDatePicker_DateSelected" />
+                    <Label Text="To"/>
+                    <DatePicker x:Name="ToDatePicker" DateSelected="ToDatePicker_DateSelected" />
+                    <Button x:Name="ConfirmReservationButton" Text="Confirm" TextColor="#A9D1DE" Clicked="ConfirmReservationButton_Clicked"></Button>
+                    <Button Text="Close" TextColor="#A9D1DE" Clicked="OnClose"></Button>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

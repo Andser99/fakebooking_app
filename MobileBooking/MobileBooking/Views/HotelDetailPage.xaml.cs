@@ -6,6 +6,8 @@ using Xamarin.Forms.Xaml;
 using MobileBooking.Models;
 using MobileBooking.ViewModels;
 using System.Collections.Generic;
+using Rg.Plugins.Popup.Services;
+using System.Threading.Tasks;
 
 namespace MobileBooking.Views
 {
@@ -18,31 +20,12 @@ namespace MobileBooking.Views
         {
             InitializeComponent();
 
-            Title = "Hotel Detail";
             BindingContext = this.viewModel = viewModel;
         }
 
-        public HotelDetailPage()
+        async void reservationButton_Clicked(object sender, EventArgs e)
         {
-            InitializeComponent();
-
-            var review = new List<Dictionary<string, string>>();
-            review[0].Add("name", "velmi dobre");
-            var item = new DetailedHotelItem
-            {
-                name = "Hotel Fatra",
-                info = "Vela infa",
-                image_path = "https://fakebooking.herokuapp.com/images/hotel_tatra.png",
-                reviews = new List<Dictionary<string, string>>()
-            };
-
-            viewModel = new HotelDetailViewModel(item);
-            BindingContext = viewModel;
-        }
-
-        private void ItemsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-
+            await PopupNavigation.Instance.PushAsync(new ReservationPopupPage(this.viewModel));
         }
     }
 }

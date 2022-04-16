@@ -13,7 +13,6 @@ namespace MobileBooking.Views
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
         public static MainPage CurrentMainPage;
 
-        MenuPage flyoutPage;
         public MainPage()
         {
             InitializeComponent();

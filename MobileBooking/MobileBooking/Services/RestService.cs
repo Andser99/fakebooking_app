@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MobileBooking.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MobileBooking.Services
 {
@@ -75,7 +76,7 @@ namespace MobileBooking.Services
             }
         }
 
-        public static async Task<(int UserId, string ResultMessage)> PostReservation(string userId, string hotelId, string dateFrom, string dateTo)
+        public static async Task<(int UserId, string ResultMessage)> PostReservations(string userId, string hotelId, string dateFrom, string dateTo)
         {
             var parameterDict = new Dictionary<string, string>();
             parameterDict.Add("user_id", userId);
@@ -111,10 +112,14 @@ namespace MobileBooking.Services
             Uri uri = new Uri(BaseAddress + "hotel/" + hotel.id);
             var result = await Client.GetStringAsync(uri);
             Console.WriteLine(result);
-            var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
-            var reviews = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(deserialized["reviews"]);
+            JObject jObject = JObject.Parse(result);
+            JToken reviewsJson = jObject["reviews"]; 
+            List<ReviewItem> reviews = reviewsJson.ToObject<List<ReviewItem>>();
             DetailedHotelItem detailedHotelItem = new DetailedHotelItem();
-            detailedHotelItem = (DetailedHotelItem)(hotel);
+            detailedHotelItem.id = hotel.id;
+            detailedHotelItem.name = hotel.name;
+            detailedHotelItem.info = hotel.info;
+            detailedHotelItem.image_path = hotel.image_path;
             detailedHotelItem.reviews = reviews;
             return detailedHotelItem;
         }
