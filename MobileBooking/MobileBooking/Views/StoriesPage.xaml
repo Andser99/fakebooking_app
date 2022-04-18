@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileBooking.Views.StoriesPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Stories" FontSize="Large" TextColor="Black"/>
+            <ScrollView>
+                <StackLayout BindableLayout.ItemsSource="{Binding Stories}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="5">
+                                <Image Source="{Binding Image}" HeightRequest="200" />
+                                <Label Text="{Binding username}" 
+                                            LineBreakMode="NoWrap" 
+                                            FontSize="Subtitle"
+                                                TextColor="DarkSlateGray"/>
+                                <Label Text="{Binding created_at}" 
+                                            LineBreakMode="NoWrap"
+                                            FontSize="Micro" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+            <Button x:Name="uploadStoriesButton" Text="Upload photo" Clicked="uploadStoriesButton_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

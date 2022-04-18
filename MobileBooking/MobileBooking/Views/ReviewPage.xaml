@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:fRating="clr-namespace:Rating;assembly=Rating"
+             x:Class="MobileBooking.Views.ReviewPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="5">
+                <Button x:Name="deleteReviewButton" Text="Delete" Clicked="deleteReviewButton_Clicked"/>
+                <Label Text="{Binding hotel_name}" 
+                        LineBreakMode="NoWrap" 
+                        FontSize="Default"
+                        TextColor="DarkSlateGray"
+                        HorizontalOptions="CenterAndExpand"/>
+                <Label Text="From: " 
+                        LineBreakMode="NoWrap"
+                        FontSize="Micro" />
+                <Label Text="{Binding reserved_from}" 
+                        LineBreakMode="NoWrap"
+                        FontSize="Small"/>
+                <Label Text="To: " 
+                        LineBreakMode="NoWrap"
+                        FontSize="Micro" />
+                <Label Text="{Binding reserved_to}" 
+                        LineBreakMode="NoWrap"
+                        FontSize="Small"/>
+                <Editor x:Name="editor" Text="{Binding review_text}" />
+                <fRating:RatingBar x:Name="rating" 
+                        HorizontalOptions="End" 
+                        ImageWidth="10" 
+                        ImageHeight="10" 
+                        FlowDirection="LeftToRight" 
+                        EmptyStarImage="emptystar" 
+                        FillStarImage="fillstar" 
+                        SelectedStarValue="{Binding stars}" />
+
+                <Button x:Name="submitReviewButton" Text="Submit" WidthRequest="100" Clicked="submitReviewButton_Clicked"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

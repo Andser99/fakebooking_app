@@ -19,9 +19,6 @@ namespace MobileBooking.Views
             InitializeComponent();
 
             StackLayout contentLayout = new StackLayout();
-            Label l = new Label() { Text = "asdf" };
-            contentLayout.Children.Add(l);
-
             GenericWebView webView = new GenericWebView();
             HtmlWebViewSource src = new HtmlWebViewSource();
             src.BaseUrl = "https://fakebooking.herokuapp.com/index.html";

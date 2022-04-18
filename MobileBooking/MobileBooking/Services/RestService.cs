@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using MobileBooking.Models;
@@ -17,7 +19,7 @@ namespace MobileBooking.Services
 
         };
 
-        public static string BaseAddress = "https://fakebooking.herokuapp.com/";
+        public static string BaseAddress = "https://fakebooking.herokuapp.com";
 
         public static async Task<(int UserId, string ResultMessage)> PostLogin(string username, string password)
         {
@@ -29,7 +31,7 @@ namespace MobileBooking.Services
             string json = JsonConvert.SerializeObject(parameterDict, Formatting.None);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            Uri uri = new Uri(BaseAddress + "login");
+            Uri uri = new Uri(BaseAddress + "/login");
             var result = await Client.PostAsync(uri, content);
             var resultText = await result.Content.ReadAsStringAsync();
             Console.WriteLine(resultText);
@@ -47,6 +49,52 @@ namespace MobileBooking.Services
             }
         }
 
+        public static async Task<string> PostStories(Stream stream)
+        {
+            Uri uri = new Uri(BaseAddress + "/story");
+
+            using (var multipartFormContent = new MultipartFormDataContent())
+            {
+                //Add other fields
+                multipartFormContent.Add(new StringContent(User.CurrentUser.Username), name: "username");
+
+                //Add the file
+                var fileStreamContent = new StreamContent(stream);
+                fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                multipartFormContent.Add(fileStreamContent, name: "photo", fileName: "photo.jpg");
+
+                //Send it
+                var response = await Client.PostAsync(uri, multipartFormContent);
+
+                var x = await response.Content.ReadAsStringAsync();
+                Console.WriteLine();
+            }
+            return "";
+        }
+
+        public static async Task<List<StoriesItem>> GetStories()
+        {
+            Uri uri = new Uri(BaseAddress + "/story");
+            var result = await Client.GetStringAsync(uri);
+            Console.WriteLine(result);
+            var deserialized = JsonConvert.DeserializeObject<Dictionary<string, List<StoriesItem>>>(result);
+            Console.WriteLine(deserialized);
+            return deserialized["list"];
+        }
+
+        public static async Task<List<ReservationItem>> GetReservations()
+        {
+            Uri uri = new Uri(BaseAddress + "/reservations/" + User.CurrentUser.UserId.ToString());
+            var result = await Client.GetStringAsync(uri);
+
+            Console.WriteLine(result);
+
+            var deserialized = JsonConvert.DeserializeObject<Dictionary<string, List<ReservationItem>>>(result);
+            Console.WriteLine(deserialized);
+
+            return deserialized["list"];
+        }
+
         public static async Task<(int UserId, string ResultMessage)> PostRegister(string username, string password, string passwordAgain)
         {
             var parameterDict = new Dictionary<string, string>();
@@ -58,7 +106,7 @@ namespace MobileBooking.Services
             string json = JsonConvert.SerializeObject(parameterDict, Formatting.None);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            Uri uri = new Uri(BaseAddress + "register");
+            Uri uri = new Uri(BaseAddress + "/register");
             var result = await Client.PostAsync(uri, content);
             var resultText = await result.Content.ReadAsStringAsync();
             Console.WriteLine(resultText);
@@ -88,7 +136,7 @@ namespace MobileBooking.Services
             string json = JsonConvert.SerializeObject(parameterDict, Formatting.None);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            Uri uri = new Uri(BaseAddress + "reservations");
+            Uri uri = new Uri(BaseAddress + "/reservations");
             var result = await Client.PostAsync(uri, content);
             var resultText = await result.Content.ReadAsStringAsync();
             Console.WriteLine(resultText);
@@ -109,7 +157,7 @@ namespace MobileBooking.Services
         public static async Task<DetailedHotelItem> GetHotel(HotelItem hotel)
         {
 
-            Uri uri = new Uri(BaseAddress + "hotel/" + hotel.id);
+            Uri uri = new Uri(BaseAddress + "/hotel/" + hotel.id);
             var result = await Client.GetStringAsync(uri);
             Console.WriteLine(result);
             JObject jObject = JObject.Parse(result);
@@ -124,10 +172,22 @@ namespace MobileBooking.Services
             return detailedHotelItem;
         }
 
+        public static async Task<string> GetHotelName(string hotel_id)
+        {
+
+            Uri uri = new Uri(BaseAddress + "/hotel/" + hotel_id);
+            var result = await Client.GetStringAsync(uri);
+            Console.WriteLine(result);
+            JObject jObject = JObject.Parse(result);
+            JToken hotelName_token = jObject["name"];
+            string hotel_name = hotelName_token.ToObject<string>();
+            return hotel_name;
+        }
+
         public static async Task<List<HotelItem>> GetHotels()
         {
 
-            Uri uri = new Uri(BaseAddress + "hotels");
+            Uri uri = new Uri(BaseAddress + "/hotels");
             var result = await Client.GetStringAsync(uri);
             Console.WriteLine(result);
             var deserialized = JsonConvert.DeserializeObject<Dictionary<string, List<HotelItem>>>(result);

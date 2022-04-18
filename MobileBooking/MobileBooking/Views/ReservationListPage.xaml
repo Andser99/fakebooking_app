@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileBooking.Views.ReservationListPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BindableLayout.ItemsSource="{Binding Reservations}" Padding="10" Spacing="30">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Spacing="5">
+                            <Label Text="{Binding hotel_name}" 
+                                        LineBreakMode="NoWrap" 
+                                        FontSize="Default"
+                                        TextColor="DarkSlateGray"
+                                        HorizontalOptions="CenterAndExpand"/>
+
+                            <Label Text="From: " 
+                                        LineBreakMode="NoWrap"
+                                        FontSize="Micro" />
+                            <Label Text="{Binding reserved_from}" 
+                                        LineBreakMode="NoWrap"
+                                        FontSize="Small"/>
+                            <Label Text="To: " 
+                                        LineBreakMode="NoWrap"
+                                        FontSize="Micro" />
+                            <Label Text="{Binding reserved_to}" 
+                                        LineBreakMode="NoWrap"
+                                        FontSize="Small"/>
+
+                            <Button x:Name="reviewButton" Text="Review" WidthRequest="100" Clicked="reviewButton_Clicked"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

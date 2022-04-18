@@ -28,6 +28,16 @@ namespace MobileBooking.Views
             });
             flyoutPageItems.Add(new FlyoutPageItem
             {
+                Title = "My reservations",
+                TargetType = typeof(ReservationListPage)
+            });
+            flyoutPageItems.Add(new FlyoutPageItem
+            {
+                Title = "Stories",
+                TargetType = typeof(StoriesPage)
+            });
+            flyoutPageItems.Add(new FlyoutPageItem
+            {
                 Title = "Logout",
                 TargetType = typeof(LoginPage)
             });

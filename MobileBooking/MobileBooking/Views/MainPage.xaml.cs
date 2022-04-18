@@ -50,9 +50,9 @@ namespace MobileBooking.Views
                     case (int)MenuItemType.VideoCalls:
                         MenuPages.Add(id, new NavigationPage(new VideoPage()));
                         break;
-                    //case (int)MenuItemType.MyReservations:
-                    //    MenuPages.Add(id, new NavigationPage(new HomePage()));
-                    //    break;
+                    case (int)MenuItemType.MyReservations:
+                        MenuPages.Add(id, new NavigationPage(new ReservationListPage()));
+                        break;
                     //case (int)MenuItemType.Stories:
                     //    MenuPages.Add(id, new NavigationPage(new AboutPage()));
                     //    break;
