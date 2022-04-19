@@ -1,5 +1,6 @@
 ﻿using MobileBooking.Services;
 using MobileBooking.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +28,29 @@ namespace MobileBooking.Views
             try
             {
                 var file = await FilePicker.PickAsync();
-                var stream = await file.OpenReadAsync();
-                var res = await RestService.PostStories(stream);
+                if (file != null)
+                {
+                    var stream = await file.OpenReadAsync();
+                    var res = await RestService.PostStories(stream);
+
+                    var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(res);
+                    if (deserialized.ContainsKey("message"))
+                    {
+                        await DisplayAlert("Success", deserialized["message"], "OK");
+                    }
+                    else if (deserialized.ContainsKey("error"))
+                    {
+                        await DisplayAlert("Error", deserialized["error"], "OK");
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Something gone wrong", "OK");
+                    }
+                }
             }
             catch (Exception ex)
             {
-                throw (ex);
+                
             }
 
         }

@@ -28,12 +28,15 @@ namespace MobileBooking.ViewModels
                 Reservations.Clear();
                 //var items = await DataStore.GetItemsAsync(true);
                 var reservation_items = await RestService.GetReservations();
-                foreach (var item in reservation_items)
+                if (reservation_items != null)
                 {
-                    item.hotel_name = await RestService.GetHotelName(item.hotel_id);
-                    item.reserved_from = item.reserved_from.Substring(0, 10);
-                    item.reserved_to = item.reserved_to.Substring(0, 10);
-                    Reservations.Add(item);
+                    foreach (var item in reservation_items)
+                    {
+                        item.hotel_name = await RestService.GetHotelName(item.hotel_id);
+                        item.reserved_from = item.reserved_from.Substring(0, 10);
+                        item.reserved_to = item.reserved_to.Substring(0, 10);
+                        Reservations.Add(item);
+                    }
                 }
             }
             catch (Exception ex)

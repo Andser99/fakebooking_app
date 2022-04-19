@@ -22,9 +22,12 @@ namespace MobileBooking.Views
         {
             BindingContext = reviewViewModel = new ReviewViewModel();
             InitializeComponent();
-            reviewViewModel.hotel_name = reservationItem.hotel_name;
-            reviewViewModel.reserved_from = reservationItem.reserved_from;
-            reviewViewModel.reserved_to = reservationItem.reserved_to;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                hotelName.Text = reservationItem.hotel_name;
+                reservedFrom.Text = reservationItem.reserved_from;
+                reservedTo.Text = reservationItem.reserved_to;
+            });
             if (reservationItem.review_id != null)
             {
                 CheckReview(Convert.ToInt32(reservationItem.review_id));

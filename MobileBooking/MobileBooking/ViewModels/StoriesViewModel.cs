@@ -29,10 +29,13 @@ namespace MobileBooking.ViewModels
                 Stories.Clear();
                 //var items = await DataStore.GetItemsAsync(true);
                 var items = await RestService.GetStories();
-                foreach (var item in items)
-                { 
-                    item.created_at = item.created_at.Substring(0, 10);
-                    Stories.Add(item);
+                if (items != null)
+                {
+                    foreach (var item in items)
+                    { 
+                        item.created_at = item.created_at.Substring(0, 10);
+                        Stories.Add(item);
+                    }
                 }
             }
             catch (Exception ex)

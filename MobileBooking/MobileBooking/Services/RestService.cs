@@ -67,9 +67,9 @@ namespace MobileBooking.Services
                 var response = await Client.PostAsync(uri, multipartFormContent);
 
                 var x = await response.Content.ReadAsStringAsync();
-                Console.WriteLine();
+
+                return x;
             }
-            return "";
         }
 
         public static async Task<List<StoriesItem>> GetStories()
@@ -79,7 +79,14 @@ namespace MobileBooking.Services
             Console.WriteLine(result);
             var deserialized = JsonConvert.DeserializeObject<Dictionary<string, List<StoriesItem>>>(result);
             Console.WriteLine(deserialized);
-            return deserialized["list"];
+            if (deserialized.ContainsKey("list"))
+            {
+                return deserialized["list"];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static async Task<List<ReservationItem>> GetReservations()
@@ -92,7 +99,14 @@ namespace MobileBooking.Services
             var deserialized = JsonConvert.DeserializeObject<Dictionary<string, List<ReservationItem>>>(result);
             Console.WriteLine(deserialized);
 
-            return deserialized["list"];
+            if (deserialized.ContainsKey("list"))
+            {
+                return deserialized["list"];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static async Task<(int UserId, string ResultMessage)> PostRegister(string username, string password, string passwordAgain)
@@ -161,7 +175,7 @@ namespace MobileBooking.Services
             var result = await Client.GetStringAsync(uri);
             Console.WriteLine(result);
             JObject jObject = JObject.Parse(result);
-            JToken reviewsJson = jObject["reviews"]; 
+            JToken reviewsJson = jObject["reviews"];
             List<ReviewItem> reviews = reviewsJson.ToObject<List<ReviewItem>>();
             DetailedHotelItem detailedHotelItem = new DetailedHotelItem();
             detailedHotelItem.id = hotel.id;
@@ -227,8 +241,8 @@ namespace MobileBooking.Services
             Console.WriteLine(result);
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
-                return "Successfully removed review with id " + deserialized["review_id"];
+                //var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
+                return "Review successfully removed";
             }
             else
             {
@@ -253,8 +267,8 @@ namespace MobileBooking.Services
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
-                return "Created review with id " + deserialized["review_id"];
+                //var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
+                return "Review created successfully";
             }
             else
             {
@@ -278,8 +292,8 @@ namespace MobileBooking.Services
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
-                return "Updated your review id " + deserialized["review_id"];
+                //var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
+                return "Review updated successfully";
             }
             else
             {

@@ -38,10 +38,5 @@ namespace MobileBooking.Views
             ReservationsCollectionView.SelectedItem = null;
 
         }
-
-        //private async void reviewButton_Clicked(object sender, EventArgs e)
-        //{
-        //    await Navigation.PushAsync(new ReviewPage());
-        //}
     }
 }
