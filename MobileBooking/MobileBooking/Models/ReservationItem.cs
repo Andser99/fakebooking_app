@@ -9,6 +9,7 @@ namespace MobileBooking.Models
         public string id { get; set; }
         public string user_id { get; set; }
         public string hotel_id { get; set; }
+        public string review_id { get; set; } = null;
         public string hotel_name { get; set; }
         public string reserved_from { get; set; }
         public string reserved_to { get; set; }

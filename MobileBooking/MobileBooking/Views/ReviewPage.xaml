@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="5">
-                <Button x:Name="deleteReviewButton" Text="Delete" Clicked="deleteReviewButton_Clicked"/>
+                <Button x:Name="deleteReviewButton" IsVisible="False" Text="Delete" Clicked="deleteReviewButton_Clicked"/>
                 <Label Text="{Binding hotel_name}" 
                         LineBreakMode="NoWrap" 
                         FontSize="Default"
@@ -24,7 +24,7 @@
                         LineBreakMode="NoWrap"
                         FontSize="Small"/>
                 <Editor x:Name="editor" Text="{Binding review_text}" />
-                <fRating:RatingBar x:Name="rating" 
+                <fRating:RatingBar x:Name="ratingBar" 
                         HorizontalOptions="End" 
                         ImageWidth="10" 
                         ImageHeight="10" 
@@ -32,8 +32,8 @@
                         EmptyStarImage="emptystar" 
                         FillStarImage="fillstar" 
                         SelectedStarValue="{Binding stars}" />
-
-                <Button x:Name="submitReviewButton" Text="Submit" WidthRequest="100" Clicked="submitReviewButton_Clicked"/>
+                <Button x:Name="updateReviewButton" IsVisible="False" Text="Update" WidthRequest="100" Clicked="updateReviewButton_Clicked"/>
+                <Button x:Name="submitReviewButton" IsVisible="False" Text="Submit" WidthRequest="100" Clicked="submitReviewButton_Clicked"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

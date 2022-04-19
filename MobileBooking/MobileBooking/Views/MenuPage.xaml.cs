@@ -28,7 +28,7 @@ namespace MobileBooking.Views
             });
             flyoutPageItems.Add(new FlyoutPageItem
             {
-                Title = "My reservations",
+                Title = "My Reservations",
                 TargetType = typeof(ReservationListPage)
             });
             flyoutPageItems.Add(new FlyoutPageItem

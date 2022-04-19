@@ -4,8 +4,8 @@
              x:Class="MobileBooking.Views.ReservationListPage">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout BindableLayout.ItemsSource="{Binding Reservations}" Padding="10" Spacing="30">
-                <BindableLayout.ItemTemplate>
+            <CollectionView  ItemsSource="{Binding Reservations}" x:Name="ReservationsCollectionView">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Spacing="5">
                             <Label Text="{Binding hotel_name}" 
@@ -27,11 +27,11 @@
                                         LineBreakMode="NoWrap"
                                         FontSize="Small"/>
 
-                            <Button x:Name="reviewButton" Text="Review" WidthRequest="100" Clicked="reviewButton_Clicked"/>
+                            <!--<Button x:Name="reviewButton" Text="Review" WidthRequest="100" Clicked="reviewButton_Clicked"/>-->
                         </StackLayout>
                     </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -193,5 +193,98 @@ namespace MobileBooking.Services
             var deserialized = JsonConvert.DeserializeObject<Dictionary<string, List<HotelItem>>>(result);
             return deserialized["list"];
         }
+
+        public static async Task<(ReviewItem Review, string Message)> GetReview(int reviewId)
+        {
+            Uri uri = new Uri(BaseAddress + "/review/" + reviewId);
+            var response = await Client.GetAsync(uri);
+            var result = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(result);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var deserialized = JsonConvert.DeserializeObject<ReviewItem>(result);
+                return (deserialized, "ok");
+            }
+            else
+            {
+                var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                return (null, deserialized["error"]);
+            }
+        }
+
+        /// <summary>
+        /// Returns the review ID as string if deletion was successful (http code 200)
+        /// otherwise returns the content of the error message
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
+        public static async Task<string> DeleteReview(int reviewId)
+        {
+            Uri uri = new Uri(BaseAddress + "/review/" + reviewId);
+            var result = await Client.DeleteAsync(uri);
+            var resultString = await result.Content.ReadAsStringAsync();
+            Console.WriteLine(result);
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
+                return "Successfully removed review with id " + deserialized["review_id"];
+            }
+            else
+            {
+                var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
+                return deserialized["error"];
+            }
+        }
+
+        public static async Task<string> PostReview(ReviewItem review)
+        {
+            var serializer = new JsonSerializer();
+            Dictionary<string, string> paramDict = new Dictionary<string, string>();
+            paramDict.Add("reservation_id", review.hotel_id);
+            paramDict.Add("stars", review.stars);
+            paramDict.Add("text", review.text);
+            string json = JsonConvert.SerializeObject(paramDict, Formatting.None);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            Uri uri = new Uri(BaseAddress + "/review");
+            var result = await Client.PostAsync(uri, content);
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
+                return "Created review with id " + deserialized["review_id"];
+            }
+            else
+            {
+                return resultString;
+            }
+        }
+
+        public static async Task<string> PutReview(ReviewItem review)
+        {
+            var serializer = new JsonSerializer();
+            Dictionary<string, string> paramDict = new Dictionary<string, string>();
+            paramDict.Add("review_id", review.id);
+            paramDict.Add("stars", review.stars);
+            paramDict.Add("text", review.text);
+            string json = JsonConvert.SerializeObject(paramDict, Formatting.None);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            Uri uri = new Uri(BaseAddress + "/review");
+            var result = await Client.PutAsync(uri, content);
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultString);
+                return "Updated your review id " + deserialized["review_id"];
+            }
+            else
+            {
+                return resultString;
+            }
+        }
     }
 }
